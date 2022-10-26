@@ -23,19 +23,19 @@ public class AppDAOImpl implements AppDAO {
 	}
 
 	@Override
-	public void update(App o) throws Exception {
+	public void update(App appInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void insert(App o) throws Exception {
+	public void insert(App appInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(App o) throws Exception {
+	public void delete(App appInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}

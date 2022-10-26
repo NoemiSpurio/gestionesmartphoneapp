@@ -23,19 +23,19 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
 	}
 
 	@Override
-	public void update(Smartphone o) throws Exception {
+	public void update(Smartphone smartphoneInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void insert(Smartphone o) throws Exception {
+	public void insert(Smartphone smartphoneInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Smartphone o) throws Exception {
+	public void delete(Smartphone smartphoneInstance) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
