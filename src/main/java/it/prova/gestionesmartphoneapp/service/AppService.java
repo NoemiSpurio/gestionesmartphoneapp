@@ -15,5 +15,7 @@ public interface AppService {
 	
 	public void rimuovi(App appInstance) throws Exception;
 	
+	public void inserisciNuovo(App appInstance) throws Exception;
+	
 	public void setAppDAO(AppDAO appDAO);
 }

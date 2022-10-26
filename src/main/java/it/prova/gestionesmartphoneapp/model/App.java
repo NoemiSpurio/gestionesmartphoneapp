@@ -54,17 +54,6 @@ public class App {
 		this.versione = versione;
 	}
 
-	public App(String nome, Date dataInstallazione, Date dataUltimoAggiornamento, String versione,
-			LocalDateTime createDateTime, LocalDateTime updateDateTime) {
-		super();
-		this.nome = nome;
-		this.dataInstallazione = dataInstallazione;
-		this.dataUltimoAggiornamento = dataUltimoAggiornamento;
-		this.versione = versione;
-		this.createDateTime = createDateTime;
-		this.updateDateTime = updateDateTime;
-	}
-
 	public Long getId() {
 		return id;
 	}
