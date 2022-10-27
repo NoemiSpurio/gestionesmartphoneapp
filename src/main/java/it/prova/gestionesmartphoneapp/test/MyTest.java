@@ -34,6 +34,12 @@ public class MyTest {
 
 			testAggiornamentoApp(appServiceInstance);
 
+			testInstallazioneApp(appServiceInstance, smartphoneServiceInstance);
+
+			testDisinstallazioneApp(appServiceInstance, smartphoneServiceInstance);
+			
+			testRimozioneSmartphone(appServiceInstance, smartphoneServiceInstance);
+
 			System.out.println(
 					"****************************** fine batteria di test ********************************************");
 			System.out.println(
@@ -112,7 +118,71 @@ public class MyTest {
 		smartphoneServiceInstance.inserisciNuovo(nuovoSmartphone);
 		App nuovaApp = new App("Whatsapp", new Date(), new Date(), "1.1.1");
 		appServiceInstance.inserisciNuovo(nuovaApp);
-		
-		//TODO
+
+		smartphoneServiceInstance.aggiungiApp(nuovaApp, nuovoSmartphone);
+
+		nuovoSmartphone = smartphoneServiceInstance.caricaSingoloElementoEagerApps(nuovoSmartphone.getId());
+
+		if (nuovoSmartphone.getApps().size() != 1)
+			throw new RuntimeException("testInstallazioneApp failed: installazione non andata a buon fine.");
+
+		smartphoneServiceInstance.rimuovi(nuovoSmartphone);
+		appServiceInstance.rimuovi(nuovaApp);
+
+		System.out.println(".......testInstallazioneApp fine: PASSED.............");
+	}
+
+	private static void testDisinstallazioneApp(AppService appServiceInstance,
+			SmartphoneService smartphoneServiceInstance) throws Exception {
+		System.out.println(".......testDisinstallazioneApp inizio.............");
+		Smartphone nuovoSmartphone = new Smartphone("Apple", "iPhone", 1000, "12.0.9");
+		smartphoneServiceInstance.inserisciNuovo(nuovoSmartphone);
+		App nuovaApp = new App("Whatsapp", new Date(), new Date(), "1.1.1");
+		appServiceInstance.inserisciNuovo(nuovaApp);
+
+		smartphoneServiceInstance.aggiungiApp(nuovaApp, nuovoSmartphone);
+
+		nuovoSmartphone = smartphoneServiceInstance.caricaSingoloElementoEagerApps(nuovoSmartphone.getId());
+
+		smartphoneServiceInstance.rimuoviApp(nuovaApp, nuovoSmartphone);
+
+		nuovoSmartphone = smartphoneServiceInstance.caricaSingoloElementoEagerApps(nuovoSmartphone.getId());
+
+		if (nuovoSmartphone.getApps().size() != 0)
+			throw new RuntimeException("testDisinstallazioneApp failed: disinstallazione non avvenuta con successo.");
+
+		smartphoneServiceInstance.rimuovi(nuovoSmartphone);
+		appServiceInstance.rimuovi(nuovaApp);
+
+		System.out.println(".......testDisinstallazioneApp fine: PASSED.............");
+
+	}
+
+	private static void testRimozioneSmartphone(AppService appServiceInstance,
+			SmartphoneService smartphoneServiceInstance) throws Exception {
+
+		System.out.println(".......testRimozioneSmartphone inizio.............");
+		Smartphone nuovoSmartphone = new Smartphone("Apple", "iPhone", 1000, "12.0.9");
+		smartphoneServiceInstance.inserisciNuovo(nuovoSmartphone);
+		App nuovaApp1 = new App("Whatsapp", new Date(), new Date(), "1.1.1");
+		appServiceInstance.inserisciNuovo(nuovaApp1);
+		App nuovaApp2 = new App("Whatsapp", new Date(), new Date(), "1.1.1");
+		appServiceInstance.inserisciNuovo(nuovaApp2);
+		smartphoneServiceInstance.aggiungiApp(nuovaApp1, nuovoSmartphone);
+		smartphoneServiceInstance.aggiungiApp(nuovaApp2, nuovoSmartphone);
+
+		Smartphone smartphoneReloaded = smartphoneServiceInstance
+				.caricaSingoloElementoEagerApps(nuovoSmartphone.getId());
+
+		smartphoneServiceInstance.rimuovi(smartphoneReloaded);
+
+		if (smartphoneServiceInstance.caricaSingoloElemento(nuovoSmartphone.getId()) != null)
+			throw new RuntimeException("testRimozioneSmartphone failed: rimozione fallita.");
+
+		appServiceInstance.rimuovi(nuovaApp1);
+		appServiceInstance.rimuovi(nuovaApp2);
+
+		System.out.println(".......testRimozioneSmartphone fine: PASSED.............");
+
 	}
 }
